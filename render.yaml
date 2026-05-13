@@ -1,0 +1,35 @@
+# Déploiement sur https://render.com (gratuit avec limitations : veille possible, disque éphémère).
+# 1. Créez un compte Render et connectez ce dépôt Git.
+# 2. Render peut importer ce fichier (Blueprint) ou créez un Web Service manuellement : Runtime Docker, même Dockerfile.
+# 3. Variables obligatoires dans le tableau de bord :
+#    APP_KEY        (php artisan key:generate --show en local)
+#    APP_URL        (https://votre-service.onrender.com)
+# 4. Base PostgreSQL (recommandé) : New PostgreSQL puis liez-la au Web Service, ou définissez DATABASE_URL.
+#    Sinon SQLite : laisser DB_CONNECTION=sqlite (données perdues si l'instance redémarre sur le gratuit).
+
+services:
+  - type: web
+    name: redynamisation
+    runtime: docker
+    region: frankfurt
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /up
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: warning
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: SESSION_DRIVER
+        value: database
+      - key: CACHE_STORE
+        value: database
+      - key: QUEUE_CONNECTION
+        value: database
