@@ -28,6 +28,7 @@ RUN apt-get update \
         libwebp-dev \
         libzip-dev \
         libpq-dev \
+        libsqlite3-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j"$(nproc)" gd pdo pdo_mysql pdo_pgsql pdo_sqlite zip bcmath opcache \
     && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
