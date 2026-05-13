@@ -8,7 +8,7 @@ RUN npm ci --ignore-scripts
 COPY . .
 RUN npm run build
 
-FROM php:8.2-apache-bookworm
+FROM php:8.2-apache-bullseye
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 ENV COMPOSER_ALLOW_SUPERUSER=1
