@@ -38,7 +38,17 @@ new class extends Component
 
             <!-- Settings Dropdown -->
             @auth
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="hidden sm:flex sm:items-center sm:gap-4 sm:ms-6">
+                    <!-- Role Badge -->
+                    <div class="@if(auth()->user()->isAdmin()) bg-orange-100 text-orange-700 @elseif(auth()->user()->isCommissionLead()) bg-yellow-100 text-yellow-700 @else bg-slate-100 text-slate-700 @endif rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                        @if(auth()->user()->isAdmin())
+                            Admin
+                        @elseif(auth()->user()->isCommissionLead())
+                            Responsable
+                        @else
+                            Membre
+                        @endif
+                    </div>
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-slate-600 bg-white hover:text-slate-800 focus:outline-none transition ease-in-out duration-150">
@@ -94,6 +104,15 @@ new class extends Component
                 <div class="px-4">
                     <div class="font-medium text-base text-slate-800" x-data="{ name: @json(auth()->user()?->name ?? 'Utilisateur') }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
                     <div class="font-medium text-sm text-slate-500">{{ auth()->user()?->email ?? 'Aucun email' }}</div>
+                    <div class="mt-2 inline-block @if(auth()->user()->isAdmin()) bg-orange-100 text-orange-700 @elseif(auth()->user()->isCommissionLead()) bg-yellow-100 text-yellow-700 @else bg-slate-100 text-slate-700 @endif rounded-full px-2 py-1 text-xs font-semibold uppercase tracking-wide">
+                        @if(auth()->user()->isAdmin())
+                            Admin
+                        @elseif(auth()->user()->isCommissionLead())
+                            Responsable
+                        @else
+                            Membre
+                        @endif
+                    </div>
                 </div>
 
                 <div class="mt-3 space-y-1">

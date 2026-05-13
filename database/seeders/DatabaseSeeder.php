@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
 
         $comLead = User::factory()->create([
             'name' => 'Olivier Mensah',
-            'email' => 'olivier@buloc.ci',
+            'email' => 'j',
             'password' => 'password',
             'role' => 'lead_communication',
             'commission_id' => Commission::where('slug', 'communication')->value('id'),
